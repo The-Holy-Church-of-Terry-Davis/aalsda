@@ -3,12 +3,119 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="AALSDA">
-	<div style="padding-bottom: calc(100% + 1.25rem);">
-		<p>Coming Soon™</p>
+	<div style="padding-bottom: 5.57rem;">
+		<p>Still in development.</p>
+		<table>
+			<tbody>
+				<tr class="width-99p">
+					<td>
+						<strong><u>Primary Information</u></strong>
+					</td>
+				</tr>
+				<tr class="width-99p" >
+					<td>
+						<a href="#">Bills and Resolutions</a>
+						<a href="#">Passed Acts</a>
+						<a href="#">Cases</a>
+					</td>
+					<td class="td-spacer"></td>
+					<td>
+						<a href="#">Public Notices</a>
+						<a href="#">Petitions</a>
+						<a href="#">Watchlist</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<br/>
+						<strong><u>Membership</u></strong>
+					</td>
+				</tr>
+				<tr class="width-99p" >
+					<td>
+						<a href="#">The Board</a>
+						<a href="#">General</a>
+					</td>
+					<td class="td-spacer"></td>
+					<td>
+						<a href="#">Join AALSDA</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<br/>
+						<strong><u>Public Documents</u></strong>
+					</td>
+				</tr>
+				<tr class="width-99p" >
+					<td>
+						<a href="/charter">Charter</a>
+					</td>
+					<td class="td-spacer"></td>
+					<td>
+						<a href="#">Directory</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<br/>
+						<strong><u>Parent Organizations</u></strong>
+					</td>
+				</tr>
+				<tr class="width-99p" >
+					<td>
+						<a href="https://thcotd.org">The Holy Chuch of Terry Davis</a>
+					</td>
+					<td class="td-spacer"></td>
+					<td>
+						<a href="#">Polar Express 2: New Generation</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<br/>
+						<strong><u>Partners</u></strong>
+					</td>
+				</tr>
+				<tr class="width-99p" >
+					<td>
+						<p>Contact us if you're interested.</p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<br/>
+						<strong><u>Contact Us</u></strong>
+					</td>
+				</tr>
+				<tr class="width-99p" >
+					<td>
+						<p>Coming Soon™</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </Layout>
 
+<style is:global>
+	.td-spacer {
+		width: 25%;
+	}
+</style>
 <style>
-
-
+	td {
+		font-size: .9rem;
+	}
+	td a {
+		display: block;
+		text-decoration: none;
+		color: var(--c-accent);
+	}
+	td a:hover {
+		color: var(--c-hover);
+	}
+	td strong {
+		font-size: 1rem;
+	}
 </style>
