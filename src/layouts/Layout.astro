@@ -13,20 +13,35 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
-    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
+    <meta name="twitter:card" content="summary_image" /><meta
+      name="twitter:image"
+      content="https://aalsda.thcotd.org/images/AALSDA Logo Zoomed.png"
+    /><meta
+      name="twitter:image:src"
+      content="https://aalsda.thcotd.org/images/AALSDA Logo Zoomed.png"
+    /><meta property="og:title" content="AALSDA" /><meta
+      property="og:description"
+      content="The AALSDA is dedicated to combating misinformation, confusion, and
+      deceptive practices in all forms, with a particular focus on entities that
+      exhibit behavior similar to that of Lenny, “Soyjak” activity."
+    />
+    <meta
+      name="description"
+      content="The AALSDA is dedicated to combating misinformation, confusion, and
+    deceptive practices in all forms, with a particular focus on entities that
+    exhibit behavior similar to that of Lenny, “Soyjak” activity."
+    />
+    <meta name="theme-color" content="#708090" /><link
+      rel="sitemap"
+      href="/sitemap-index.xml"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
   <body>
     <div id="content">
-      <table
-        align="left"
-        width="100%"
-        cellpadding="0"
-        cellspacing="0"
-      >
+      <table align="left" width="100%" cellpadding="0" cellspacing="0">
         <tbody>
           <tr>
             <td colspan="4" valign="top" align="left">
@@ -41,11 +56,16 @@ const { title } = Astro.props;
             <td class="width-1px" id="line">
               <img src="/images/1pxtransparent.gif" width="1" height="1" />
             </td>
-            <td valign="top" align="left" class="width-99p" style="padding: 0 7px;">
+            <td
+              valign="top"
+              align="left"
+              class="width-99p"
+              style="padding: 0 7px;"
+            >
               <br />
               <slot />
-              <br/>
-              <Footer/>
+              <br />
+              <Footer />
             </td>
           </tr>
         </tbody>
@@ -101,12 +121,12 @@ const { title } = Astro.props;
   #line {
     background-color: var(--c-text);
   }
-  
+
   .width-99p {
-	width: 99%;
+    width: 99%;
   }
   .width-1px {
-	width: 1px;
+    width: 1px;
   }
   .accent.bg {
     background-color: var(--c-accent);
