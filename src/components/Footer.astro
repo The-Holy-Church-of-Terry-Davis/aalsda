@@ -1,0 +1,39 @@
+---
+import Links from "./Links.astro";
+---
+
+<span id="footer">
+  <span><Links color="var(--c-accent)" /></span>
+</span>
+<span id="sub-footer">
+  <img src="images/AALSDA Logo Zoomed.png" width="10%" />
+  <small
+    >Copyright 2024 (c) The Holy Church of Terry Davis (<a
+      href="https://thcotd.org"
+      target="_blank">https://thcotd.org</a
+    >) <br/>and Polar Express 2: New Generation. All Rights Reserved.</small
+  >
+</span>
+
+<style>
+  #footer {
+    display: inline-flex;
+    width: 100%;
+    border-top: 2px solid var(--c-accent);
+    border-bottom: 2px solid var(--c-accent);
+    margin-bottom: 5px;
+    justify-content: space-around;
+    font-size: 0.8rem;
+  }
+  #footer span {
+    display: inline-flex;
+    margin: 5px 0;
+    gap: 10px;
+  }
+  #sub-footer {
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

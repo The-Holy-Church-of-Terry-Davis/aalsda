@@ -1,0 +1,18 @@
+---
+interface Props {
+  color: string;
+}
+
+const { color } = Astro.props;
+const style = `color: ${color}`;
+---
+
+<a style={style} href="/">Home</a>
+<a style={style} href="/charter">Charter</a>
+<a style={style} href="/sitemap-0.xml">Sitemap</a>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+</style>
