@@ -4,7 +4,7 @@ import matter from "gray-matter";
 import { Buffer } from "buffer";
 import { githubAuthHeader } from "../../../secrets";
 
-export const authHeader = await githubAuthHeader() || {};
+export const authHeader = (await githubAuthHeader()) || {};
 
 export async function getDataFromGitHub() {
   let response = await fetch(
@@ -50,10 +50,7 @@ const item = data.find((item: { path: string }) =>
 );
 const url = item ? item.url : undefined;
 
-const response = await fetch(
-  url,
-  authHeader
-);
+const response = await fetch(url, authHeader);
 if (!response.ok) {
   throw new Error(`Error fetching file content for ${id} from GitHub.`);
 }
@@ -66,14 +63,14 @@ const text = parsed.content;
 let documentedByHtmlString = "Documented by:<br/>";
 for (const person of frontMatter.documentedBy) {
   const [name, href] = Object.entries(person)[0];
-  documentedByHtmlString += `<a style="margin-left: 10px;" href="${'/members/member/'+href || "#"}">${name}</a>;`;
+  documentedByHtmlString += `<a style="margin-left: 10px;" href="${"/members/member/" + href || "#"}">${name}</a>;`;
 }
 ---
 
 <CaseLayout
-    title=`AALSDA | Cases > ${frontMatter.id} - ${frontMatter.title}`
-    embedTitle=`AALSDA | Cases > ${frontMatter.id} - ${frontMatter.title}`
-    embedDescription=`${text.substring(0,200)}...`
+  title=`AALSDA | Cases > ${frontMatter.id} - ${frontMatter.title}`
+  embedTitle=`AALSDA | Cases > ${frontMatter.id} - ${frontMatter.title}`
+  embedDescription=`${text.substring(0,200)}...`
 >
   <table width="100%" style="font-family: monospace;">
     <tbody>
@@ -81,6 +78,13 @@ for (const person of frontMatter.documentedBy) {
         <td align="center" valign="top">
           <table width="90%">
             <tbody>
+              <tr>
+                <td>
+                    <a href="/cases">&lt;&lt; Go back to cases</a>
+                    <br/>
+                    <br/>
+                </td>
+              </tr>
               <tr>
                 <td>{frontMatter.id}</td>
               </tr>
@@ -103,7 +107,9 @@ for (const person of frontMatter.documentedBy) {
               </tr>
               <tr>
                 <td>
-                  <article style="margin-top: 10px; text-indent: 2rem;">{text}</article>
+                  <article style="margin-top: 10px; text-indent: 2rem;">
+                    {text}
+                  </article>
                 </td>
               </tr>
             </tbody>
