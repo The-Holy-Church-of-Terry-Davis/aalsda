@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
 
+
 export async function githubAuthHeader() {
     try {
         const pat = await fs.readFile("./secrets/gh_pat.key", "utf-8");
