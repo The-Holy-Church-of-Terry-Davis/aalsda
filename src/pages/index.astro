@@ -120,10 +120,9 @@ const headerString = data.text;
   </div>
 </Layout>
 
-<script>
+<script is:raw>
   document.addEventListener("DOMContentLoaded", () => {
     const anchors = document.getElementsByTagName("a");
-	console.log(anchors);
     for (let anchor of anchors) {
       const url = new URL(anchor.href);
       if (url.pathname === '/' && !anchor.classList.contains("ignore-url-check") && !anchor.href.includes("thcotd.org") ) {
