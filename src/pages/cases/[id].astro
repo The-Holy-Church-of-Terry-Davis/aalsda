@@ -1,0 +1,117 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import matter from "gray-matter";
+import { Buffer } from "buffer";
+import { githubAuthHeader } from "../../../secrets";
+
+export const authHeader = await githubAuthHeader() || {};
+
+export async function getDataFromGitHub() {
+  let response = await fetch(
+    "https://api.github.com/repos/the-holy-church-of-terry-davis/aalsda-data/git/trees/main",
+    authHeader
+  );
+  if (!response.ok) {
+    throw new Error(`Error fetching tree from GitHub (${response.status}).`);
+  }
+  let data = await response.json();
+  response = await fetch(
+    data.tree.find((item: { path: string }) => item.path === "cases").url,
+    authHeader
+  );
+  if (!response.ok) {
+    throw new Error(`Error fetching tree from GitHub (${response.status}).`);
+  }
+  data = await response.json();
+  data = data.tree;
+  return data;
+}
+
+export async function getStaticPaths() {
+  const data = await getDataFromGitHub();
+
+  let paths = [];
+  for (var i = 0; i < data.length; i++) {
+    const _case = data[i];
+    const caseName = _case.path.replace(".txt", "");
+    // https://stackoverflow.com/a/10272822/14363702 - Thanks
+    const first = caseName.substring(0, caseName.indexOf(" "));
+    paths.push({ params: { id: first } });
+  }
+
+  return paths;
+}
+
+const { id } = Astro.params;
+const data = await getDataFromGitHub();
+
+const item = data.find((item: { path: string }) =>
+  item.path.includes(`${id} `)
+);
+const url = item ? item.url : undefined;
+
+const response = await fetch(
+  url,
+  authHeader
+);
+if (!response.ok) {
+  throw new Error(`Error fetching file content for ${id} from GitHub.`);
+}
+const contentData = await response.json();
+const content = Buffer.from(contentData.content, "base64").toString("binary");
+const parsed = matter(content);
+const frontMatter = parsed.data;
+const text = parsed.content;
+
+let documentedByHtmlString = "Documented by:<br/>";
+for (const person of frontMatter.documentedBy) {
+  const [name, href] = Object.entries(person)[0];
+  documentedByHtmlString += `<a style="margin-left: 10px;" href="${href || "#"}">${name}</a>;`;
+}
+---
+
+<Layout title=`AALSDA | Cases > ${frontMatter.id} - ${frontMatter.title}`>
+  <table width="100%" style="font-family: monospace;">
+    <tbody>
+      <tr>
+        <td align="center" valign="top">
+          <table width="90%">
+            <tbody>
+              <tr>
+                <td>{frontMatter.id}</td>
+              </tr>
+              <tr>
+                <td align="center">The Case of {frontMatter.title}</td>
+              </tr>
+              <tr>
+                <td>
+                  <table width="100%">
+                    <tbody>
+                      <tr>
+                        <colgroup class="width-50"></colgroup>
+                        <colgroup class="width-50"></colgroup>
+                        <td set:html={documentedByHtmlString} />
+                        <td align="right">{frontMatter.date}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <article style="margin-top: 10px; text-indent: 2rem;">{text}</article>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</Layout>
+
+<style>
+  .width-50 {
+    width: 50%;
+  }
+</style>
