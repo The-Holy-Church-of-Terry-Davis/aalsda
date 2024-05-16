@@ -1,0 +1,34 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+async function setCases(): Promise<string> {
+    let response = await fetch("https://api.github.com/repos/the-holy-church-of-terry-davis/aalsda-data/git/trees/main");
+    if (!response.ok) {
+        throw new Error("Error fetching tree from GitHub.");
+    }
+    let data = await response.json();
+    response = await fetch(data.tree.find((item: { path: string }) => item.path === 'cases').url);
+    if (!response.ok) {
+        throw new Error("Error fetching tree from GitHub.");
+    }
+    data = await response.json();
+    data = data.tree;
+    
+    let htmlString = "";
+    for (var i = 0; i < data.length; i++) {
+        const _case = data[i];
+        const caseName = (_case.path).replace(".txt", "")
+        // https://stackoverflow.com/a/10272822/14363702 - Thanks
+        const first = caseName.substring(0, caseName.indexOf(' ')); // This and below is quicker than using spread syntax, apparently.
+        const second = caseName.substring(caseName.indexOf(' ') + 1);
+        htmlString += `<a href="/cases/${first}">${first} - ${second}</a>`;
+    }
+
+    return htmlString;
+}
+
+---
+
+<Layout title="AALSDA | Cases">
+    <div set:html={setCases()}></div>
+</Layout>

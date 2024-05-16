@@ -30,7 +30,7 @@ const headerString = data.text;
           <td>
             <a href="#">Bills and Resolutions</a>
             <a href="#">Passed Acts</a>
-            <a href="#">Cases</a>
+            <a href="/cases">Cases</a>
             <a href="#">Reports</a>
           </td>
           <td class="td-spacer"></td>
@@ -120,18 +120,6 @@ const headerString = data.text;
     </table>
   </div>
 </Layout>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const anchors = document.getElementsByTagName("a");
-    for (let anchor of anchors) {
-      const url = new URL(anchor.href);
-      if (url.pathname === '/' && !anchor.classList.contains("ignore-url-check") && !anchor.href.includes("://thcotd.org") ) {
-        anchor.style.color = "rgb(225,100,100)";
-      }
-    }
-  });
-</script>
 
 <style is:global>
   .td-spacer {
