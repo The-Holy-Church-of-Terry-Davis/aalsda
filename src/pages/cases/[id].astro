@@ -66,7 +66,7 @@ const text = parsed.content;
 let documentedByHtmlString = "Documented by:<br/>";
 for (const person of frontMatter.documentedBy) {
   const [name, href] = Object.entries(person)[0];
-  documentedByHtmlString += `<a style="margin-left: 10px;" href="${href || "#"}">${name}</a>;`;
+  documentedByHtmlString += `<a style="margin-left: 10px;" href="${'/members/member/'+href || "#"}">${name}</a>;`;
 }
 ---
 
