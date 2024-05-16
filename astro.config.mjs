@@ -5,4 +5,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
     site: 'https://aalsda.thcotd.org',
     integrations: [sitemap()],
+    redirects: {
+        '/api/v1': '/api'
+    }
 });
