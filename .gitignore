@@ -1,3 +1,6 @@
+# 🤫
+secrets/*.key
+
 # build output
 dist/
 

@@ -2,18 +2,14 @@
 import Layout from "../../layouts/Layout.astro";
 import matter from "gray-matter";
 import { Buffer } from "buffer";
+import { githubAuthHeader } from "../../../secrets";
 
-export const thisIsAReadOnlyPATForASingleRepoSoIDontCareAboutLeakingIt = {
-  headers: {
-    Authorization:
-      "Bearer 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",
-  },
-};
+export const authHeader = await githubAuthHeader() || {};
 
 export async function getDataFromGitHub() {
   let response = await fetch(
     "https://api.github.com/repos/the-holy-church-of-terry-davis/aalsda-data/git/trees/main",
-    thisIsAReadOnlyPATForASingleRepoSoIDontCareAboutLeakingIt
+    authHeader
   );
   if (!response.ok) {
     throw new Error(`Error fetching tree from GitHub (${response.status}).`);
@@ -21,7 +17,7 @@ export async function getDataFromGitHub() {
   let data = await response.json();
   response = await fetch(
     data.tree.find((item: { path: string }) => item.path === "cases").url,
-    thisIsAReadOnlyPATForASingleRepoSoIDontCareAboutLeakingIt
+    authHeader
   );
   if (!response.ok) {
     throw new Error(`Error fetching tree from GitHub (${response.status}).`);
@@ -56,7 +52,7 @@ const url = item ? item.url : undefined;
 
 const response = await fetch(
   url,
-  thisIsAReadOnlyPATForASingleRepoSoIDontCareAboutLeakingIt
+  authHeader
 );
 if (!response.ok) {
   throw new Error(`Error fetching file content for ${id} from GitHub.`);
