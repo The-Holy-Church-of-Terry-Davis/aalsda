@@ -1,0 +1,32 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+async function setMembers(): Promise<string> {
+    const response = await fetch('https://github.com/The-Holy-Church-of-Terry-Davis/aalsda-data/blob/main/members/general.json?raw=true');
+        
+    if (!response.ok) {
+        throw new Error("Couldn't get general members data from GitHub.");
+    }
+            
+    const data = await response.json();
+    let htmlString = "";
+    for (var i = 0; i < data.members.length; i++) {
+        const member = data.members[i];
+        htmlString += `<tr><td>${member.name}</td><td align="center">${member.role}</td><td align="center">${member.joinDate}</td></tr>`;
+    }
+    
+    return htmlString;
+}
+---
+
+<Layout title="AALSDA | Members > General">
+    <table class="data-table" width="70%" cellpadding="1" cellspacing="1">
+        <tbody set:html={setMembers()}>
+            <tr>
+                <th align="left">Board Member</th>
+                <th>Role</th>
+                <th>Join Date</th>
+            </tr>
+        </tbody>
+    </table>
+</Layout>

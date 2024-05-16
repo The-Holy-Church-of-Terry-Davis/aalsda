@@ -1,9 +1,9 @@
 export async function GET(): Promise<Response> {
     try {
-        const response = await fetch('https://github.com/The-Holy-Church-of-Terry-Davis/aalsda-data/blob/main/header.json?raw=true');
+        const response = await fetch('https://github.com/The-Holy-Church-of-Terry-Davis/aalsda-data/blob/main/members/board.json?raw=true');
         
         if (!response.ok) {
-            throw new Error("Couldn't get headline data from GitHub.");
+            throw new Error("Couldn't get board members data from GitHub.");
         }
         
         const data = await response.json();
@@ -12,7 +12,7 @@ export async function GET(): Promise<Response> {
             headers: { 'Content-Type': 'application/json' }
         });
     } catch (error: any) {
-        console.error('Error fetching headline data:', error);
+        console.error('Error fetching board members data:', error);
         return new Response(JSON.stringify({ error: error.message }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' }

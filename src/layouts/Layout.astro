@@ -20,7 +20,10 @@ const { title } = Astro.props;
     /><meta
       name="twitter:image:src"
       content="https://aalsda.thcotd.org/images/AALSDA Logo Zoomed.png"
-    /><meta property="og:title" content="Alliance Against Lenny and Similar Disinformation Agents" /><meta
+    /><meta
+      property="og:title"
+      content="Alliance Against Lenny and Similar Disinformation Agents"
+    /><meta
       property="og:description"
       content="The AALSDA is dedicated to combating misinformation, confusion, and deceptive practices in all forms, with a particular focus on entities that exhibit behavior similar to that of Lenny, “Soyjak” activity."
     />
@@ -137,5 +140,19 @@ const { title } = Astro.props;
   table p,
   table strong {
     margin: 0;
+  }
+  
+  .data-table tr th {
+    background-color: var(--c-accent);
+    color: whitesmoke;
+    padding: 2px 5px;
+    font-size: 0.8rem;
+  }
+  .data-table tr td {
+    font-size: 0.8rem;
+  }
+
+  .data-table tr:nth-child(odd) {
+    background-color: #e0e0e0;
   }
 </style>
