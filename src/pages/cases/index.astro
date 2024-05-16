@@ -21,7 +21,7 @@ async function setCases(): Promise<string> {
         // https://stackoverflow.com/a/10272822/14363702 - Thanks
         const first = caseName.substring(0, caseName.indexOf(' ')); // This and below is quicker than using spread syntax, apparently.
         const second = caseName.substring(caseName.indexOf(' ') + 1);
-        htmlString += `<a href="/cases/${first}">${first} - ${second}</a>`;
+        htmlString += `<a href="/cases/${first}">C-${first} - ${second}</a>`;
     }
 
     return htmlString;
