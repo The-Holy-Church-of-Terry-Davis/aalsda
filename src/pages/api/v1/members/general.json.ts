@@ -1,12 +1,8 @@
+import { general } from "../../../../lib/fetchMembers";
+
 export async function GET(): Promise<Response> {
     try {
-        const response = await fetch('https://github.com/The-Holy-Church-of-Terry-Davis/aalsda-data/blob/main/members/general.json?raw=true');
-        
-        if (!response.ok) {
-            throw new Error("Couldn't get general members data from GitHub.");
-        }
-        
-        const data = await response.json();
+        const data = general();
 
         return new Response(JSON.stringify(data), {
             headers: { 'Content-Type': 'application/json' }

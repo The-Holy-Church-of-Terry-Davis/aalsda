@@ -2,33 +2,13 @@
 import CaseLayout from "../../layouts/CaseLayout.astro";
 import matter from "gray-matter";
 import { Buffer } from "buffer";
-import { githubAuthHeader } from "../../../secrets";
+import { githubAuthHeader } from "../../helpers/secrets";
+import { fromTree } from "../../lib/fetchData";
 
 export const authHeader = (await githubAuthHeader()) || {};
 
-export async function getDataFromGitHub() {
-  let response = await fetch(
-    "https://api.github.com/repos/the-holy-church-of-terry-davis/aalsda-data/git/trees/main",
-    authHeader
-  );
-  if (!response.ok) {
-    throw new Error(`Error fetching tree from GitHub (${response.status}).`);
-  }
-  let data = await response.json();
-  response = await fetch(
-    data.tree.find((item: { path: string }) => item.path === "cases").url,
-    authHeader
-  );
-  if (!response.ok) {
-    throw new Error(`Error fetching tree from GitHub (${response.status}).`);
-  }
-  data = await response.json();
-  data = data.tree;
-  return data;
-}
-
 export async function getStaticPaths() {
-  const data = await getDataFromGitHub();
+  const data = await fromTree("cases", authHeader);
 
   let paths = [];
   for (var i = 0; i < data.length; i++) {
@@ -43,12 +23,15 @@ export async function getStaticPaths() {
 }
 
 const { id } = Astro.params;
-const data = await getDataFromGitHub();
+const data = await fromTree("cases", authHeader);
 
 const item = data.find((item: { path: string }) =>
   item.path.includes(`${id} `)
 );
 const url = item ? item.url : undefined;
+if (url === undefined) {
+  throw new Error(`Unable to fetch url, url is undefined.`);
+}
 
 const response = await fetch(url, authHeader);
 if (!response.ok) {

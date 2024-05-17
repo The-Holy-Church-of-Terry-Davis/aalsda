@@ -1,12 +1,8 @@
+import { board } from "../../../../lib/fetchMembers";
+
 export async function GET(): Promise<Response> {
     try {
-        const response = await fetch('https://github.com/The-Holy-Church-of-Terry-Davis/aalsda-data/blob/main/members/board.json?raw=true');
-        
-        if (!response.ok) {
-            throw new Error("Couldn't get board members data from GitHub.");
-        }
-        
-        const data = await response.json();
+        const data = await board();
 
         return new Response(JSON.stringify(data), {
             headers: { 'Content-Type': 'application/json' }
