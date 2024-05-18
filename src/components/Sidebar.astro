@@ -66,20 +66,20 @@ async function setMeetingSchedule(): Promise<string> {
         <table style="font-size: .8rem;">
           <tbody>
             <tr>
-              <br/>
+              <br />
               <th align="left">Search Cases</th>
             </tr>
             <tr>
               <td>
-                <form id="caseForm" method="GET">
+                <div id="caseForm">
                   <input
                     style="width: 65%;"
                     type="text"
                     id="caseId"
                     placeholder="C-xxx"
                   />
-                  <button type="submit">Go</button>
-                </form>
+                  <button id="caseFormSubmit">Go</button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -91,19 +91,15 @@ async function setMeetingSchedule(): Promise<string> {
         <table style="font-size: .8rem;">
           <tbody>
             <tr>
-              <br/>
+              <br />
               <th align="left">Search Members</th>
             </tr>
             <tr>
               <td>
-                <form id="memberForm" method="GET">
-                  <input
-                    style="width: 65%;"
-                    type="text"
-                    id="memberName"
-                  />
-                  <button type="submit">Go</button>
-                </form>
+                <div id="memberForm">
+                  <input style="width: 65%;" type="text" id="memberName" />
+                  <button id="memberFormSubmit">Go</button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -114,29 +110,30 @@ async function setMeetingSchedule(): Promise<string> {
 </table>
 
 <script>
-  document.getElementById('caseForm')!.addEventListener('submit', function(event) {
-    event.preventDefault();
-    //@ts-ignore
-    const caseId = document.getElementById('caseId')!.value;
-    const formAction = `/cases/${caseId.toLowerCase().replace("c-", "")}`;
-    //@ts-ignore
-    this.action = formAction;
-    //@ts-ignore
-    this.submit();
-  });
+  document
+    .getElementById("caseFormSubmit")!
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+      //@ts-ignore
+      const caseId = document.getElementById("caseId")!.value.trim();
+      if (!caseId) {
+        return;
+      }
+      window.location.href = `/cases/${caseId.toLowerCase().replace("c-", "")}`;
+    });
 
-  document.getElementById('memberForm')!.addEventListener('submit', function(event) {
-    event.preventDefault();
-    //@ts-ignore
-    const caseId = document.getElementById('memberName')!.value;
-    const formAction = `/members/member/${caseId.toLowerCase().replace(" ", "-")}`;
-    //@ts-ignore
-    this.action = formAction;
-    //@ts-ignore
-    this.submit();
-  });
+  document
+    .getElementById("memberFormSubmit")!
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+      //@ts-ignore
+      const memberId = document.getElementById("memberName")!.value.trim();
+      if (!memberId) {
+        return;
+      }
+      window.location.href = `/members/member/${memberId.toLowerCase().replace(" ", "-")}`;
+    });
 </script>
-
 
 <style>
   table.sidebar {
