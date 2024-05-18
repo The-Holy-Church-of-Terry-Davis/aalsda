@@ -2,6 +2,7 @@
 import Nav from "../components/Nav.astro";
 import Sidebar from "../components/Sidebar.astro";
 import Footer from "../components/Footer.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
 interface Props {
   title: string;
   embedTitle: string;
@@ -72,6 +73,7 @@ const { title, embedTitle, embedDescription } = Astro.props;
         </tbody>
       </table>
     </div>
+    <ThemeToggle/>
   </body>
 </html>
 

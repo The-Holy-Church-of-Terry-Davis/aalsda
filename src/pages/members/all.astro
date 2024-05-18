@@ -1,14 +1,17 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { all } from "../../lib/fetchMembers";
+import { githubAuthHeader } from "../../helpers/secrets";
+
+const authHeader = (await githubAuthHeader()) || {};
 
 async function setMembers(): Promise<string> {
-  const data = await all();
+  const data = await all(authHeader);
 
   let htmlString = "";
   for (var i = 0; i < data.members.length; i++) {
     const member = data.members[i];
-    htmlString += `<tr><td>${member.name}</td><td align="center">${member.role}</td><td align="center">${member.joinDate}</td></tr>`;
+    htmlString += `<tr><td><a href="/members/member/${member.name.toLowerCase().replace(" ", "-")}">${member.name}</a></td><td align="center">${member.role}</td><td align="center">${member.joinDate}</td></tr>`;
   }
 
   return htmlString;

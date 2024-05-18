@@ -13,3 +13,15 @@ export type Member = {
 export type MembersList = {
     members: Member[];
 };
+
+export type WatchlistEntry = {
+  name: string;
+  aliases: string[];
+  discordUserId: string;
+  reason: string;
+  relatedCaseId: string | null;
+};
+
+export type Watchlist = {
+  watchlist: WatchlistEntry[];
+};

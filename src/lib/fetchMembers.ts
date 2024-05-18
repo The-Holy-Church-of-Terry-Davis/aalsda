@@ -1,7 +1,7 @@
 import type { AuthHeader } from "../types";
 import type { MembersList } from "../types";
 
-export async function all(headers?: AuthHeader): Promise<MembersList> {
+export async function all(headers?: AuthHeader | {}): Promise<MembersList> {
     const generalMembersResponse = await fetch('https://github.com/The-Holy-Church-of-Terry-Davis/aalsda-data/blob/main/members/general.json?raw=true', headers);
 
     if (!generalMembersResponse.ok) {
@@ -30,7 +30,7 @@ export async function all(headers?: AuthHeader): Promise<MembersList> {
     return data;
 }
 
-export async function board(headers?: AuthHeader): Promise<MembersList> {
+export async function board(headers?: AuthHeader | {}): Promise<MembersList> {
     const response = await fetch('https://github.com/The-Holy-Church-of-Terry-Davis/aalsda-data/blob/main/members/board.json?raw=true', headers);
 
     if (!response.ok) {
@@ -41,7 +41,7 @@ export async function board(headers?: AuthHeader): Promise<MembersList> {
     return data;
 }
 
-export async function general(headers?: AuthHeader): Promise<MembersList> {
+export async function general(headers?: AuthHeader | {}): Promise<MembersList> {
     const response = await fetch('https://github.com/The-Holy-Church-of-Terry-Davis/aalsda-data/blob/main/members/general.json?raw=true', headers);
 
     if (!response.ok) {

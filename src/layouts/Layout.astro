@@ -2,6 +2,7 @@
 import Nav from "../components/Nav.astro";
 import Sidebar from "../components/Sidebar.astro";
 import Footer from "../components/Footer.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
 interface Props {
   title: string;
 }
@@ -70,6 +71,7 @@ const { title } = Astro.props;
         </tbody>
       </table>
     </div>
+    <ThemeToggle/>
   </body>
 </html>
 
@@ -78,10 +80,16 @@ const { title } = Astro.props;
     const anchors = document.getElementsByTagName("a");
     for (let anchor of anchors) {
       // no #goto links, 2000s style site anyways. Too lazy to make this proper.
-      if (anchor.href.includes('#') && !anchor.classList.contains("ignore-url-check") && !anchor.href.includes("://thcotd.org") ) {
+      if (
+        anchor.href.includes("#") &&
+        !anchor.classList.contains("ignore-url-check") &&
+        !anchor.href.includes("://thcotd.org")
+      ) {
         anchor.style.color = "rgb(225,100,100)";
       }
     }
+
+    
   });
 </script>
 
@@ -94,7 +102,9 @@ const { title } = Astro.props;
     /* --c-accent: cadetblue; */
     /* --c-accent: black; */
     /* --c-accent: slategrey; */
+    /* --c: #3232c5; */
     --c-accent: navy;
+    --c-text-accent: navy;
     --c-hover: black;
   }
   html,
@@ -154,7 +164,7 @@ const { title } = Astro.props;
   table strong {
     margin: 0;
   }
-  
+
   .data-table tr th {
     background-color: var(--c-accent);
     color: whitesmoke;
